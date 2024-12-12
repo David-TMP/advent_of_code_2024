@@ -1,7 +1,7 @@
 def solve_part1():
 
     # Read all lines from stdin (the input map)
-    with open("day10/input_test.txt", "r") as f:
+    with open("day10/input.txt", "r") as f:
         lines = [line.strip() for line in f if line.strip()]
         if not lines:
             print(0)

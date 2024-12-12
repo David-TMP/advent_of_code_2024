@@ -59,28 +59,51 @@ print(f'Day 7 Part 1 Run Time = {str(elapsed_time)}')
 def find_calibration_part2():
     res = []
     for index, equation in enumerate(after_colon):
-        if len(equation)-1 == 1:
-            operations = [("+"), ("*"), ("^")]
-        else:
-            operations = list(product(["+", "*", "^"], repeat=len(equation)-1))
+        # Include the concatenation operator '^'
+        operations = list(product(["+", "*", "^"], repeat=len(equation)-1))
+        
         # Process each set of operations
-        for op_set in operations:  # Reset i here for each op_set
+        for op_set in operations:
             result = equation[0]
-            for i, op in enumerate(op_set):  # Local i resets for each op_set
+            for i, op in enumerate(op_set):
                 if op == "+":
                     result += equation[i + 1]
                 elif op == "*":
                     result *= equation[i + 1]
                 elif op == "^":
-                    length = len(str(equation[i+1]))
-                    result = int(str(result) + str(equation[i+1]))
-            # Check if result matches the corresponding value in before_colon
+                    # Concatenation: combine digits
+                    result = int(str(result) + str(equation[i + 1]))
+            # Check if the final result matches the target
             if result == before_colon[index]:
                 res.append(before_colon[index])
-                break
-            if result > before_colon[index]:
-                break
-    return res        
+                break  # Move to the next equation after finding a valid combination
+    return res
+
+# def find_calibration_part2():
+#     res = []
+#     for index, equation in enumerate(after_colon):
+#         if len(equation)-1 == 1:
+#             operations = [("+"), ("*"), ("^")]
+#         else:
+#             operations = list(product(["+", "*", "^"], repeat=len(equation)-1))
+#         # Process each set of operations
+#         for op_set in operations:  # Reset i here for each op_set
+#             result = equation[0]
+#             for i, op in enumerate(op_set):  # Local i resets for each op_set
+#                 if op == "+":
+#                     result += equation[i + 1]
+#                 elif op == "*":
+#                     result *= equation[i + 1]
+#                 elif op == "^":
+#                     length = len(str(equation[i+1]))
+#                     result = int(str(result) + str(equation[i+1]))
+#             # Check if result matches the corresponding value in before_colon
+#             if result == before_colon[index]:
+#                 res.append(before_colon[index])
+#                 break
+#             if result > before_colon[index]:
+#                 break
+#     return res        
 
 start = timeit.default_timer()
 part2_sol = find_calibration_part2()
