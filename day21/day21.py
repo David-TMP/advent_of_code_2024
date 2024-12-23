@@ -121,10 +121,6 @@ def find_shortest_path(init, target_button, keypad_map, keypad_grid):
     # If the target is not reachable
     return None
 
-
-test_code = 'A029A'
-
-
 with open('day21/input.txt', 'r') as f:
     codes = [line.strip() for line in f.readlines()]
 
