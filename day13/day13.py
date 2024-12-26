@@ -56,7 +56,7 @@ def parse_input(file_path):
     return systems
 
 
-## ----- PART 2 ----- ##
+## ----- PART 1 ----- ##
 
 def solve_system(A_X, B_X, Prize_X, A_Y, B_Y, Prize_Y):
     """
