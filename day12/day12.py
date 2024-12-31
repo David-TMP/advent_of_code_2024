@@ -1,3 +1,4 @@
+from collections import defaultdict
 from collections import deque
 import timeit
 
@@ -58,10 +59,6 @@ print(f'Day 12 Part 1 Run Time = {str(elapsed_time)}')
 
 
 ## ----- PART 2 ----- ##
-
-from collections import defaultdict
-from collections import deque
-import timeit
 
 def delete_adjacent_duplicates(input_set):
     """

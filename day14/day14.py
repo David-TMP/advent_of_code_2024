@@ -139,49 +139,46 @@ print(f'Day 14 Part 1 Solution = {part1_sol}')
 print(f'Day 14 Part 1 Run Time = {str(elapsed_time)}')
 
 
-
-
-
 ## ----- PART 2 ----- ##
 
-import sys
-import time
+def solve_part2():
+    W = 101
+    H = 103
 
-W = 101
-H = 103
+    ans = [0,0,0,0]
 
-ans = [0,0,0,0]
+    robots = []
 
-robots = []
+    for line in open("day14/input.txt"):
+        if line.strip() == "":
+            continue
+        p,v = line.split()
+        px,py = map(int,p[2:].split(",")) 
+        vx,vy = map(int,v[2:].split(","))
+        robots.append(((px,py),(vx,vy)))
 
-st = 0
-for line in open("day14/input.txt"):
-    if line.strip() == "":
-        continue
-    p,v = line.split()
-    px,py = map(int,p[2:].split(",")) 
-    vx,vy = map(int,v[2:].split(","))
-    robots.append(((px,py),(vx,vy)))
+    seconds = 0
+    while True:
+        grid = [[0 for _ in range(W)] for _ in range(H)]
+        seconds += 1
 
-seconds = 0
-while True:
-    grid = [[0 for _ in range(W)] for _ in range(H)]
-    seconds += 1
+        bad = False
+        for robot in robots:
+            pr1,pr2 = robot
+            px,py = pr1
+            vx,vy = pr2
+            nx,ny = px + seconds*vx, py + seconds*vy
+            nx = nx % W
+            ny = ny % H
+            grid[ny][nx] += 1
+            if grid[ny][nx] > 1:
+                bad = True
 
-    bad = False
-    for robot in robots:
-        pr1,pr2 = robot
-        px,py = pr1
-        vx,vy = pr2
-        nx,ny = px + seconds*vx, py + seconds*vy
-        nx = nx % W
-        ny = ny % H
-        grid[ny][nx] += 1
-        if grid[ny][nx] > 1:
-            bad = True
-
-    if not bad:
-        print(seconds)
-        # for row in grid:
-        #     print("".join(map(str,row)))
-        # time.sleep(0.3)
+        if not bad:
+            return(seconds)
+        
+start = timeit.default_timer()
+part2_sol = solve_part2()
+elapsed_time = timeit.default_timer()-start
+print(f'Day 14 Part 2 Solution = {part2_sol}')
+print(f'Day 14 Part 2 Run Time = {str(elapsed_time)}')

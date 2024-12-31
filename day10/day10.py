@@ -1,3 +1,7 @@
+import timeit
+
+## ----- PART 1 ----- ##
+
 def solve_part1():
 
     # Read all lines from stdin (the input map)
@@ -64,11 +68,16 @@ def solve_part1():
             if grid[r][c] == 0:
                 total_score += len(reachable_from[r][c])
 
-    print(total_score)
+    return(total_score)
+
+start = timeit.default_timer()
+part1_sol = solve_part1()
+elapsed_time = timeit.default_timer()-start
+print(f'Day 10 Part 1 Solution = {part1_sol}')
+print(f'Day 10 Part 1 Run Time = {str(elapsed_time)}')
 
 
-solve_part1()
-
+## ----- PART 2 ----- ##
 
 def solve_part2():
     
@@ -115,8 +124,12 @@ def solve_part2():
             if grid[r][c] == 0:
                 total_rating += path_count[r][c]
     
-    print(total_rating)
+    return(total_rating)
 
 
-solve_part2()
+start = timeit.default_timer()
+part2_sol = solve_part2()
+elapsed_time = timeit.default_timer()-start
+print(f'Day 10 Part 2 Solution = {part2_sol}')
+print(f'Day 10 Part 2 Run Time = {str(elapsed_time)}')
 

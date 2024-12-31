@@ -1,6 +1,11 @@
-def solve():
-    import re
-    from collections import defaultdict, deque
+import timeit
+import re
+from collections import defaultdict, deque
+
+
+## ----- PART 1 ----- ##
+
+def solve_part1():
 
     # Read the entire puzzle input
     with open("day24/input.txt", "r") as f:
@@ -122,8 +127,11 @@ def solve():
     binary_str = "".join(reversed(bits))  # reverse so the leftmost is the highest-order bit
     decimal_value = int(binary_str, 2) if binary_str else 0
 
-    print(decimal_value)
+    return(decimal_value)
 
 
-if __name__ == "__main__":
-    solve()
+start = timeit.default_timer()
+part1_sol = solve_part1()
+elapsed_time = timeit.default_timer()-start
+print(f'Day 24 Part 1 Solution = {part1_sol}')
+print(f'Day 24 Part 1 Run Time = {str(elapsed_time)}')
