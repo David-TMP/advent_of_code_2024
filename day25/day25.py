@@ -1,0 +1,1 @@
+# with open('day25/input_test.txt', 'r') as f:

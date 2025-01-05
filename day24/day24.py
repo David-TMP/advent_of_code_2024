@@ -135,3 +135,57 @@ part1_sol = solve_part1()
 elapsed_time = timeit.default_timer()-start
 print(f'Day 24 Part 1 Solution = {part1_sol}')
 print(f'Day 24 Part 1 Run Time = {str(elapsed_time)}')
+
+
+
+## ----- PART 2 ----- ##
+
+import operator
+
+# Map gate names (e.g. "XOR") to Python's operator functions
+GATE_FUNCS = {
+    "AND": operator.and_,
+    "OR":  operator.or_,
+    "XOR": operator.xor
+}
+
+lines_with_gates = []
+with open('day24/input.txt') as f:
+    for line in f:
+        line = line.strip()
+        if '->' in line:
+            # Keep only lines describing gates: "a GATE b -> c"
+            parts = line.split()
+            lines_with_gates.append(parts)
+
+def used_as_input_to_gate_type(wire_name, gate_type):
+    """
+    Returns True if 'wire_name' is used as an input to any gate of type
+    'gate_type' in the puzzle lines.
+    """
+    for a, x, b, arrow, c in lines_with_gates:
+        if x == gate_type and wire_name in (a, b):
+            return True
+    return False
+
+def solve_part2():
+    suspicious_wires = []
+    for a, x, b, arrow, c in lines_with_gates:    
+        cond1 = (x == "XOR" and all(d[0] not in 'xyz' for d in (a, b, c)))
+        cond2 = (x == "AND" and "x00" not in (a, b)
+                and used_as_input_to_gate_type(c, "XOR"))
+        cond3 = (x == "XOR" and "x00" not in (a, b)
+                and used_as_input_to_gate_type(c, "OR"))
+        cond4 = (x != "XOR" and c.startswith('z') and c != "z45")
+        
+        if cond1 or cond2 or cond3 or cond4:
+            suspicious_wires.append(c)
+
+    # Print the sorted list of suspicious wires, comma-separated
+    return(",".join(sorted(suspicious_wires)))
+
+start = timeit.default_timer()
+part2_sol = solve_part2()
+elapsed_time = timeit.default_timer()-start
+print(f'Day 24 Part 2 Solution = {part2_sol}')
+print(f'Day 24 Part 2 Run Time = {str(elapsed_time)}')
